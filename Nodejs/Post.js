@@ -22,5 +22,7 @@ class Post
 	rate(UID, vote)
 	{
 		var error = db.RatePost(this.PID, UID, vote);
+
+		return error;
 	}
 };
