@@ -1,23 +1,48 @@
+var mysqli = require('mysqli');
+
 exports.Database =
 class Database
 {
 	constructor()
 	{
 		//TODO connect to database
+		this.conn = new mysqli({
+			host: "localhost",
+			username: "root",
+			password: "root",
+			database: "communitydb"
+		});
+
+		this.conn.connect((err) => {
+			if(err)
+				throw err;
+		});
 	}
 
-	CreatePost(PID, UID, body, privacy, topics)
+	CreatePost(UID, body, privacy, topics)
 	{
-		let query = `INSERT INTO Post VALUES(${PID}, ${UID}, '${body}', '${privacy}');`;
-		//TODO Use query
-
-		for(let i = 0; i < topics.length; i++)
+		return new Promise((resolve, reject) =>
 		{
-			let joinQ = `INSERT INTO PostTopic VALUES(${PID}, '${topics[i]}');`;
-			//TODO Use query
-		}
+			let query = `INSERT INTO Post VALUES(0, ${UID}, '${body}', '${privacy}');`;
+			this.conn.query(query, (err, result) => {
+				if(err)
+					reject(err);
 
-		return true;
+				let PID = result.insertId;
+				for(let i = 0; i < topics.length; i++)
+				{
+					let joinQ = `INSERT INTO PostTopic VALUES(${PID}, '${topics[i]}');`;
+					
+					this.conn.query(joinQ, (err2, result2) => {
+						if(err2)
+							reject(err2);
+
+						resolve(${PID});
+					});
+				}
+			});
+		});
+		
 	}
 
 	GetPost(PID)
