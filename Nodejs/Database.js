@@ -47,11 +47,18 @@ class Database
 
 	GetPost(PID)
 	{
-		//TODO check privacy
-		let query = `SELECT * FROM Post WHERE posterid=${PID};`;
-		//TODO Use query
+		return new Promise((resolve, reject) =>
+		{
+			let query = `SELECT * FROM Post WHERE postid=${PID};`;
+			this.conn.query(query, (err, result) => {
+				if(err)
+					reject(err);
 
-		//return post
+				//TODO Check Privacy
+
+				resolve(result);
+			});
+		});
 	}
 
 	VotePost(PID, UID, value)
