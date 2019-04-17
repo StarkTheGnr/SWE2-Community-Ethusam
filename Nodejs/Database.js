@@ -54,7 +54,7 @@ class Database
 				if(err)
 					reject(err);
 
-				//TODO Check Privacy
+				//TODO check privacy
 
 				resolve(result);
 			});
@@ -63,47 +63,114 @@ class Database
 
 	VotePost(PID, UID, value)
 	{
-		//TODO check privacy
-		let query = `SELECT * FROM Post WHERE posterid=${PID};`;
-		//TODO Use query
+		return new Promise((resolve, reject) =>
+		{
+			let query = `SELECT * FROM Post WHERE posterid=${PID};`;
+			this.conn.query(query, (err, result) => {
+				if(err)
+					reject(err);
 
-		//return post
+				//TODO check privacy
+
+				query = `INSERT INTO votes values(${PID}, ${UID}, ${value});`;
+				this.conn.query(query, (err2, result2) => {
+					if(err2)
+						reject(err2);
+
+					resolve(result);
+				});
+			});
+		});
 	}
 
 	CreateComment(PID, UID, body)
 	{
-		let query = `INSERT INTO Comments VALUES(${PID}, ${UID}, '${body}');`;
-		//TODO Use query
+		return new Promise((resolve, reject) =>
+		{
+			let query = `INSERT INTO Comments VALUES(${PID}, ${UID}, '${body}');`;
+			
+			this.conn.query(query, (err, result) => {
+					if(err)
+						reject(err);
+
+					resolve(result.insertId);
+				});
+		});
 	}
 
 	Get20Comments(PID, UID, Index)
 	{
 		//TODO check privacy
-		let query = `SELECT * FROM Comments WHERE postid = ${PID};`;
-		//TODO Use query
+		return new Promise((resolve, reject) =>
+		{
+			let query = `SELECT * FROM Comments WHERE postid = ${PID};`;
+			
+			this.conn.query(query, (err, result) => {
+					if(err)
+						reject(err);
+
+					resolve(result);
+				});
+		});
 	}
 
 	AddFollower(followerid, followedid)
 	{
-		let query = `INSERT INTO Followers VALUES(${followerid}, ${followedid});`;
-		//TODO Use query
+		return new Promise((resolve, reject) =>
+		{
+			let query = `INSERT INTO Followers VALUES(${followerid}, ${followedid});`;
+			
+			this.conn.query(query, (err, result) => {
+					if(err)
+						reject(err);
+
+					resolve(true);
+				});
+		});
 	}
 
 	RemoveFollower(followerid, followedid)
 	{
-		let query = `DELETE FROM Followers WHERE followerid = ${followerid} and followedid = ${followedid};`;
-		//TODO Use query
+		return new Promise((resolve, reject) =>
+		{
+			let query = `DELETE FROM Followers WHERE followerid = ${followerid} and followedid = ${followedid};`;
+			
+			this.conn.query(query, (err, result) => {
+					if(err)
+						reject(err);
+
+					resolve(true);
+				});
+		});
 	}
 
 	GetFollowers(UID)
 	{
-		let query = `SELECT followerid FROM Followers WHERE followedid = ${UID};`;
-		//TODO Use query
+		return new Promise((resolve, reject) =>
+		{
+			let query = `SELECT followerid FROM Followers WHERE followedid = ${UID};`;
+			
+			this.conn.query(query, (err, result) => {
+					if(err)
+						reject(err);
+
+					resolve(result);
+				});
+		});
 	}
 
 	GetFollowed(UID)
 	{
-		let query = `SELECT followedid FROM Followers WHERE followerid = ${UID};`;
-		//TODO Use query
+		return new Promise((resolve, reject) =>
+		{
+			let query = `SELECT followedid FROM Followers WHERE followerid = ${UID};`;
+			
+			this.conn.query(query, (err, result) => {
+					if(err)
+						reject(err);
+
+					resolve(result);
+				});
+		});
 	}
 }
