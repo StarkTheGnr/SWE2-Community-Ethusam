@@ -5,4 +5,6 @@ before_script:
   - npm install gulp
   - npm install mysqli
   - npm install gulp-cli -g
+  - npm install gulp-newer
+  - npm install gulp-imagemin
 script: gulp images
