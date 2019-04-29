@@ -13,9 +13,9 @@ build = './'
 
 function images() {
 
-  const out = 'C:\\Users\\StarkTheGnr\\Documents\\Uni\\SWE 2\\Project\\SWE2-Community-Ethusam\\';
+  const out = './';
 
-  return gulp.src('C:\\Users\\StarkTheGnr\\Documents\\Uni\\SWE 2\\Project\\SWE2-Community-Ethusam\\test.jpg')
+  return gulp.src('./test.jpg')
     .pipe(gulp.dest(out));
 
 };
