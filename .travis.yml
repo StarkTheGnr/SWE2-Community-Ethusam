@@ -2,5 +2,7 @@ language: node_js
 node_js:
   - "7"
 before_script:
+  - npm install -g gulp
+  - npm install mysqli
   - npm install -g gulp-cli
 script: gulp images
