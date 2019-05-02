@@ -7,4 +7,5 @@ before_script:
   - npm install gulp-cli -g
   - npm install gulp-newer
   - npm install gulp-imagemin
+  - npm install express
 script: gulp images
