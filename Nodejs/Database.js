@@ -5,7 +5,6 @@ class Database
 {
 	constructor()
 	{
-		//TODO connect to database
 		this.conn = new mysqli({
 			host: "localhost",
 			username: "root",
@@ -37,7 +36,7 @@ class Database
 						if(err2)
 							reject(err2);
 
-						resolve(${PID});
+						resolve(PID);
 					});
 				}
 			});
